@@ -1,0 +1,73 @@
+{% include "header.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{post.img_url}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>{{post.title}}</h1>
+            <h2 class="subheading">{{post.subtitle}}</h2>
+            <span class="meta">Posted by
+              <a href="#">{{post.author.name}}</a>
+              on {{post.date}}</span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {{ post.body|safe }}
+          <hr>
+            {% if current_user.id==1: %}
+            <div class="clearfix">
+            <a class="btn btn-primary float-right" href="{{url_for('edit_post', post_id=post.id)}}">Edit Post</a>
+            </div>
+            {%endif %}
+
+
+<!--           Comments Area -->
+          <div class="col-lg-8 col-md-10 mx-auto comment">
+              <ul class="commentList">
+                <li>
+                    <div class="commenterImage">
+                       <img src="data:image/jpeg;base64,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"/>
+                    </div>
+                </li>
+              </ul>
+                    <div class="commentText">
+                       <div class="col-lg-8 col-md-10 mx-auto">
+ {% for comment in post_comments: %}
+         <div><img src="{{ comment.comment_author.email | gravatar }}"/></div>
+                           <p>
+         {{comment.text|safe}}
+        </p>
+                           <span class="date sub-text">{{comment.comment_author.name}}</span>
+           {%endfor %}
+      </div>
+
+                       <form action="{{url_for('add_new_comment',post_id=post.id)}}" method="post">
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='Comment') }}
+        {{ wtf.quick_form(cform, novalidate=True, button_map={"submit": "primary"}) }}
+          </form>
+                    </div>
+
+            </div>
+
+
+          </div>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+{% include "footer.html" %}
